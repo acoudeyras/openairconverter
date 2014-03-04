@@ -31,6 +31,11 @@ define ->
       radius = parseFloat str, 10
       new Circle center, radius
 
+  #à inverser c'est le path reader qui prend le line reader en param
+  #il renvoie un path et le line reader est avancé d'autant
+  #Implique que la zone aussi sait utiliser le line reader et va déléguer au path reader ce qu'il faut
+  #
+
   class PathReader
     constructor: ->
       @center = null
