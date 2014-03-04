@@ -1,6 +1,9 @@
 define ->
   class Polygon
     constructor: ->
-      @points = []
-    addPath: (path) ->
-      @points = points.concat path.discretize()
+      @paths = []
+    discretize: ->
+      points = []
+      for path in @paths
+        points = points.concat path.discretize()
+      points

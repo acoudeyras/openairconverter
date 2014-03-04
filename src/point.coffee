@@ -16,27 +16,36 @@ define ->
       lng = Coord.fromString lngCoord + ' ' + lngOrientation
       new Point lat, lng
 
-  #DB
   class Arc
     constructor: (@center, @coord1, @coord2) ->
     discretize: -> [@]
-    @fromString: (@center, str) ->
-      #DB 48:21:50 N 007:22:38 E,48:41:27 N 007:29:58 E
+    @fromString: (center, str) ->
+      [coord1, coord2] = str.split ','
+        .map Point.fromString
+      new Arc center, coord1, coord2
 
   class Circle
     constructor: (@center, @radius) ->
     discretize: -> [@]
-    @fromString (@center, str) ->
-      #DC 0.4
+    @fromString (center, str) ->
+      radius = parseFloat str, 10
+      new Circle center, radius
 
   class PathReader
-    @fromString : (str) ->
+    constructor: ->
+      @center = null
+    readLine : (str) ->
       code = str.substring 0, 3
       rest = str.substring 2, str.length
       if code is 'DP '
         return Point.fromString rest
-      if code is 'V X'
-        #V X=
-        #Mettre de côté la valeur de X
       if code is 'DB '
-        #réutiliser la 
+        return Arc.fromString @center, rest
+      if code is 'DC '
+        return Circle.fromString @center, rest
+      if code is 'V X'
+        rest = rest.substring 1, str.length
+        @center = Point.fromString rest
+        return null
+      throw
+        message: "Code #{code} is not supported"

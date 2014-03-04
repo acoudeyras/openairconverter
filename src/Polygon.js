@@ -3,11 +3,18 @@ define(function() {
   var Polygon;
   return Polygon = (function() {
     function Polygon() {
-      this.points = [];
+      this.paths = [];
     }
 
-    Polygon.prototype.addPath = function(path) {
-      return this.points = points.concat(path.discretize());
+    Polygon.prototype.discretize = function() {
+      var path, points, _i, _len, _ref;
+      points = [];
+      _ref = this.paths;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        path = _ref[_i];
+        points = points.concat(path.discretize());
+      }
+      return points;
     };
 
     return Polygon;
