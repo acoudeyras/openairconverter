@@ -5,6 +5,6 @@ for file of window.__karma__.files
     tests.push file
 
 requirejs.config
-  baseUrl: '/base/app'
+  baseUrl: '/base/app/'
   deps: tests
   callback: window.__karma__.start

@@ -10,7 +10,7 @@ for (file in window.__karma__.files) {
 }
 
 requirejs.config({
-  baseUrl: '/base/app',
+  baseUrl: '/base/app/',
   deps: tests,
   callback: window.__karma__.start
 });

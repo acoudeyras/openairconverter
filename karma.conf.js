@@ -15,6 +15,9 @@ module.exports = function(config) {
     files: [{
       pattern: 'test/**/*Spec.js',
       included: false
+    }, {
+      pattern: 'app/**/*.js',
+      included: false
     }, 'test/test-main.js'],
 
 
@@ -22,7 +25,6 @@ module.exports = function(config) {
     exclude: [
 
     ],
-
 
 
     // test results reporter to use
