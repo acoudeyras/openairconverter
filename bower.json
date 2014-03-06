@@ -1,0 +1,6 @@
+{
+  "name": "openairconverter",
+  "dependencies": {
+    "requirejs": "~2.1.5"
+  }
+}

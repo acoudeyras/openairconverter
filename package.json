@@ -1,0 +1,50 @@
+{
+  "name": "openairconverter",
+  "description": "An awesome requirejs app",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "author": {
+    "name": "Author Name",
+    "email": "email@domain.com",
+    "url": "http://bower.io/"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://mit-license.org"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-qunit": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-requirejs": "*",
+    "grunt-contrib-connect": "*",
+    "karma-script-launcher": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.2",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-html2js-preprocessor": "^0.1.0",
+    "karma-jasmine": "^0.1.5",
+    "requirejs": "^2.1.11",
+    "karma-requirejs": "^0.2.1",
+    "karma-coffee-preprocessor": "^0.1.3",
+    "karma-phantomjs-launcher": "^0.1.2",
+    "karma": "^0.10.9",
+    "grunt-karma": "^0.6.2",
+    "mocha": "^1.17.1",
+    "karma-mocha": "^0.1.1",
+    "karma-coverage": "^0.2.0",
+    "chai": "^1.9.0",
+    "karma-chai": "^0.1.0",
+    "karma-osx-reporter": "0.0.4"
+  }
+}
