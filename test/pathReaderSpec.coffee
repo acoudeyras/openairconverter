@@ -1,4 +1,4 @@
-define ['reader'], (PathReader) ->
+define ['path-reader'], (PathReader) ->
   
  describe 'Path reader', ->
 
