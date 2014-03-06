@@ -49,6 +49,17 @@ module.exports = function(grunt) {
         singleRun: true
       }
     },
+    docco: {
+      all: {
+        files: {
+          src: _coffeeSrc
+        },
+        options: {
+          layout: 'parallel',
+          output: 'docs/'
+        }
+      }
+    },
     coffee: {
       compile: {
         files: grunt.file.expandMapping([_coffeeAll], './', {
@@ -131,9 +142,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-coffeelint');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-docco-multi');
 
   // Default task.
-  grunt.registerTask('default', ['coffee', 'coffeelint', 'karma', 'clean', 'requirejs', 'concat', 'uglify']);
+  grunt.registerTask('default', ['coffee', 'coffeelint', 'docco', 'clean', 'requirejs', 'concat', 'uglify']);
   grunt.registerTask('preview', ['connect:development']);
   grunt.registerTask('preview-live', ['default', 'connect:production']);
 

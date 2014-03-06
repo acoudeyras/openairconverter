@@ -13,10 +13,12 @@
     "email": "email@domain.com",
     "url": "http://bower.io/"
   },
-  "licenses": [{
-    "type": "MIT",
-    "url": "http://mit-license.org"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://mit-license.org"
+    }
+  ],
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-qunit": "*",
@@ -44,6 +46,7 @@
     "karma-chai": "^0.1.0",
     "karma-osx-reporter": "0.0.4",
     "grunt-coffeelint": "0.0.8",
-    "grunt-contrib-coffee": "^0.10.1"
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-docco-multi": "0.0.2"
   }
 }
