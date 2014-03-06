@@ -1,5 +1,23 @@
 {
   "name": "openairconverter",
+  "author": {
+    "name": "Alexis Coudeyras",
+    "email": "acoudeyras@gmail.com"
+  },
+  "keywords": [
+    "openair",
+    "converter",
+    "kml",
+    "geojson"
+  ],
+  "ignore": [
+    "Gruntfile.js",
+    "karma.conf.js",
+    "package.json",
+    "test",
+    ".gitignore",
+    ".jshintrc"
+  ],
   "dependencies": {
     "requirejs": "~2.1.5"
   }
