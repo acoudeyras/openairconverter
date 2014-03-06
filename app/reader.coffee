@@ -1,4 +1,4 @@
-define ->
+define ['./zone'], (Zone) ->
 
   class Reader
     readLine: ->

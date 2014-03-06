@@ -2,7 +2,8 @@ define ['./shapes/point', './shapes/circle', './shapes/arc'], (Point, Circle, Ar
   
   #à inverser c'est le path reader qui prend le line reader en param
   #il renvoie un path et le line reader est avancé d'autant
-  #Implique que la zone aussi sait utiliser le line reader et va déléguer au path reader ce qu'il faut
+  #Implique que la zone aussi sait utiliser le line reader et va
+  # déléguer au path reader ce qu'il faut
   #
 
   class PathReader

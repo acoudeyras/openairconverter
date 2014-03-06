@@ -1,7 +1,7 @@
 define ['path-reader'], (PathReader) ->
   
- describe 'Path reader', ->
+  describe 'Path reader', ->
 
-  it 'should', ->
+    it 'should', ->
 
-    expect(true).to.equal true
+      expect(true).to.equal true

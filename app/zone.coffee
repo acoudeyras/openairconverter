@@ -1,4 +1,4 @@
-define ->
+define ['./path-reader'], (PathReader) ->
 
   class Altitude
     constructor: (@feet, @desc) ->

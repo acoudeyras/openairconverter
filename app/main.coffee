@@ -1,0 +1,2 @@
+define ['./reader'], (Reader) ->
+  Reader

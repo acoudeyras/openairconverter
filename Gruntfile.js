@@ -2,6 +2,14 @@
 
 module.exports = function(grunt) {
 
+  var _coffeeSrc = 'app/**/*.coffee';
+  var _coffeeTest = 'test/**/*.coffee';
+  var _coffeeAll = [_coffeeSrc, _coffeeTest];
+
+  function _toJs(fileName) {
+    return fileName.replace(/\.coffee$/, '.js');
+  }
+
   // Project configuration.
   grunt.initConfig({
     // Metadata.
@@ -41,25 +49,25 @@ module.exports = function(grunt) {
         singleRun: true
       }
     },
-    jshint: {
-      gruntfile: {
-        options: {
-          jshintrc: '.jshintrc'
+    coffee: {
+      compile: {
+        files: grunt.file.expandMapping([_coffeeAll], './', {
+          rename: function(destBase, destPath) {
+            return _toJs(destBase + destPath);
+          }
+        })
+      }
+    },
+    coffeelint: {
+      options: {
+        'no_trailing_whitespace': {
+          'level': 'error'
         },
-        src: 'Gruntfile.js'
+        'max_line_length': {
+          level: 'ignore'
+        }
       },
-      app: {
-        options: {
-          jshintrc: 'app/.jshintrc'
-        },
-        src: ['app/**/*.js']
-      },
-      test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/**/*.js']
-      },
+      app: ['app/**/*.coffee', 'test/**/*.coffee']
     },
     watch: {
       gruntfile: {
@@ -78,8 +86,8 @@ module.exports = function(grunt) {
     requirejs: {
       compile: {
         options: {
-          name: 'config',
-          mainConfigFile: 'app/config.js',
+          name: 'app/main',
+          mainConfigFile: 'app/main.js',
           out: '<%= concat.dist.dest %>',
           optimize: 'none'
         }
@@ -118,13 +126,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-coffeelint');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'karma', 'clean', 'requirejs', 'concat', 'uglify']);
+  grunt.registerTask('default', ['coffee', 'coffeelint', 'karma', 'clean', 'requirejs', 'concat', 'uglify']);
   grunt.registerTask('preview', ['connect:development']);
   grunt.registerTask('preview-live', ['default', 'connect:production']);
 
