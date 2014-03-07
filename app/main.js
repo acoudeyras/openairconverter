@@ -1,5 +1,5 @@
 (function() {
-  define(['./reader'], function(Reader) {
+  define(['./memory-reader'], function(Reader) {
     return Reader;
   });
 

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>point.coffee</title>
+  <title>shape-parser.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -76,7 +76,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>point.coffee</h1>
+                  <h1>shape-parser.coffee</h1>
               </div>
           </li>
         
@@ -91,18 +91,29 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'../coord'</span>], <span class="hljs-function"><span class="hljs-params">(Coord)</span> -&gt;</span>
+            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./point'</span>, <span class="hljs-string">'./circle'</span>, <span class="hljs-string">'./arc'</span>], <span class="hljs-function"><span class="hljs-params">(Point, Circle, Arc)</span> -&gt;</span>
 
-  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span></span>
-    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@lat</span>, <span class="hljs-property">@lng</span>)</span> -&gt;</span>
-    <span class="hljs-attribute">equals</span>: <span class="hljs-function"><span class="hljs-params">({lat, lng})</span> -&gt;</span>
-      lat.equals(<span class="hljs-property">@lat</span>) <span class="hljs-keyword">and</span> lng.equals <span class="hljs-property">@lng</span>
-    <span class="hljs-attribute">discretize</span>:<span class="hljs-function"> -&gt;</span> [@]
-    <span class="hljs-property">@parse</span>: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
-      [latCoord, latOrientation, lngCoord, lngOrientation] = str.split <span class="hljs-string">' '</span>
-      lat = Coord.parse latCoord + <span class="hljs-string">' '</span> + latOrientation
-      lng = Coord.parse lngCoord + <span class="hljs-string">' '</span> + lngOrientation
-      <span class="hljs-keyword">new</span> Point lat, lng</pre></div></div>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShapeParser</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@reader</span>)</span> -&gt;</span>
+    <span class="hljs-attribute">parseNext</span>: <span class="hljs-function"><span class="hljs-params">(center)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@reader</span>.hasNext()
+      line = <span class="hljs-property">@reader</span>.line()
+      code = line.substring <span class="hljs-number">0</span>, <span class="hljs-number">3</span>
+      rest = line.substring <span class="hljs-number">2</span>, line.length
+      rest = rest.trim()
+      shape = <span class="hljs-keyword">switch</span> code.trim()
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'DP'</span> <span class="hljs-keyword">then</span> Point.parse rest
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'V X'</span>
+          center = Point.parse rest
+          <span class="hljs-property">@reader</span>.moveNext()
+          <span class="hljs-property">@parseNext</span> center
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'DB'</span> <span class="hljs-keyword">then</span> Arc.parse center, rest
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'DC'</span> <span class="hljs-keyword">then</span> Circle.parse center, rest
+        <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
+      <span class="hljs-keyword">if</span> shape? <span class="hljs-keyword">then</span> <span class="hljs-property">@reader</span>.moveNext()
+      shape
+    <span class="hljs-attribute">hasNext</span>:<span class="hljs-function"> -&gt;</span>
+      <span class="hljs-property">@parseNext</span>()?</pre></div></div>
             
         </li>
         

@@ -5,3 +5,4 @@ define ['path-reader', 'text!../data/french.txt'], (PathReader, data) ->
     it 'should', ->
 
       expect(true).to.equal true
+      

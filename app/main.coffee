@@ -1,2 +1,2 @@
-define ['./reader'], (Reader) ->
+define ['./memory-reader'], (Reader) ->
   Reader

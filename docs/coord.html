@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="memory-reader.html">
+                memory-reader.coffee
+              </a>
+            
+              
               <a class="source" href="path-reader.html">
                 path-reader.coffee
               </a>
@@ -36,11 +41,6 @@
               
               <a class="source" href="polygon.html">
                 polygon.coffee
-              </a>
-            
-              
-              <a class="source" href="reader.html">
-                reader.coffee
               </a>
             
               
@@ -56,6 +56,11 @@
               
               <a class="source" href="point.html">
                 point.coffee
+              </a>
+            
+              
+              <a class="source" href="shape-parser.html">
+                shape-parser.coffee
               </a>
             
               
@@ -90,9 +95,12 @@
 
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Coord</span></span>
     <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@degre</span>, <span class="hljs-property">@minute</span>, <span class="hljs-property">@second</span>, <span class="hljs-property">@orientation</span>)</span> -&gt;</span>
-    <span class="hljs-property">@fromString</span>: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
+    <span class="hljs-attribute">equals</span>: <span class="hljs-function"><span class="hljs-params">({degre, minute, second, orientation})</span> -&gt;</span>
+      degre <span class="hljs-keyword">is</span> <span class="hljs-property">@degre</span> <span class="hljs-keyword">and</span> minute <span class="hljs-keyword">is</span> <span class="hljs-property">@minute</span> <span class="hljs-keyword">and</span> second <span class="hljs-keyword">is</span> <span class="hljs-property">@second</span> <span class="hljs-keyword">and</span> orientation <span class="hljs-keyword">is</span> <span class="hljs-property">@orientation</span>
+    <span class="hljs-property">@parse</span>: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
       [coord, orientation]  = str.split <span class="hljs-string">' '</span>
       [degre, minute, second] = coord.split <span class="hljs-string">':'</span>
+        .map <span class="hljs-function"><span class="hljs-params">(val)</span> -&gt;</span> parseInt(val, <span class="hljs-number">10</span>)
       <span class="hljs-keyword">new</span> Coord degre, minute, second, orientation</pre></div></div>
             
         </li>

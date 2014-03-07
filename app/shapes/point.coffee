@@ -2,9 +2,11 @@ define ['../coord'], (Coord) ->
 
   class Point
     constructor: (@lat, @lng) ->
+    equals: ({lat, lng}) ->
+      lat.equals(@lat) and lng.equals @lng
     discretize: -> [@]
-    @fromString: (str) ->
+    @parse: (str) ->
       [latCoord, latOrientation, lngCoord, lngOrientation] = str.split ' '
-      lat = Coord.fromString latCoord + ' ' + latOrientation
-      lng = Coord.fromString lngCoord + ' ' + lngOrientation
+      lat = Coord.parse latCoord + ' ' + latOrientation
+      lng = Coord.parse lngCoord + ' ' + lngOrientation
       new Point lat, lng

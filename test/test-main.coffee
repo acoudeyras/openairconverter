@@ -9,6 +9,6 @@ for file of window.__karma__.files
 requirejs.config
   baseUrl: '/base/app/'
   paths:
-    text: '../bower_components/requirejs-text/text'  
+    text: '../bower_components/requirejs-text/text'
   deps: tests
   callback: window.__karma__.start

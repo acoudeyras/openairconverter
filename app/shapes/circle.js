@@ -11,7 +11,7 @@
         return [this];
       };
 
-      Circle.fromString = function(center, str) {
+      Circle.parse = function(center, str) {
         var radius;
         radius = parseFloat(str, 10);
         return new Circle(center, radius);

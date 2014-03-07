@@ -12,9 +12,9 @@
         return [this];
       };
 
-      Arc.fromString = function(center, str) {
+      Arc.parse = function(center, str) {
         var coord1, coord2, _ref;
-        _ref = str.split(',').map(Point.fromString), coord1 = _ref[0], coord2 = _ref[1];
+        _ref = str.split(',').map(Point.parse), coord1 = _ref[0], coord2 = _ref[1];
         return new Arc(center, coord1, coord2);
       };
 
