@@ -13,7 +13,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [{
+      pattern: 'test/data/french.txt',
+      included: false
+    }, {
       pattern: 'test/**/*Spec.js',
+      included: false
+    }, {
+      pattern: 'bower_components/**/*.js',
       included: false
     }, {
       pattern: 'app/**/*.js',

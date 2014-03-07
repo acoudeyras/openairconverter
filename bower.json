@@ -20,5 +20,8 @@
   ],
   "dependencies": {
     "requirejs": "~2.1.5"
+  },
+  "devDependencies": {
+    "requirejs-text": "~2.0.10"
   }
 }
