@@ -29,26 +29,26 @@ define(['memory-reader', 'text!../data/small-french.txt'], function(Reader, data
     it('should the first line', function() {
       var reader;
       reader = new Reader(data);
-      return expect(reader.line()).to.equal('** CTR AIX (08 APR 2010) **');
+      return expect(reader.line()).to.equal('** P 36 FESSENHEIM (08 APR 2010) **');
     });
     return it('when moved next, should return the second line', function() {
       var reader;
       reader = new Reader(data);
       reader.moveNext();
-      return expect(reader.line()).to.equal('AC CTR');
+      return expect(reader.line()).to.equal('AC P');
     });
   });
   return describe('nextLine', function() {
     it('should return the second line', function() {
       var reader;
       reader = new Reader(data);
-      return expect(reader.nextLine()).to.equal('AC CTR');
+      return expect(reader.nextLine()).to.equal('AC P');
     });
     return it('when moved next, should return the third line', function() {
       var reader;
       reader = new Reader(data);
       reader.moveNext();
-      return expect(reader.nextLine()).to.equal('AN CTR Aix 118.75');
+      return expect(reader.nextLine()).to.equal('AN P36 Fessenheim');
     });
   });
 });

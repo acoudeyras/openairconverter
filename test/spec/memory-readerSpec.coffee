@@ -27,20 +27,20 @@ define ['memory-reader', 'text!../data/small-french.txt'], (Reader, data) ->
 
     it 'should the first line', ->
       reader = new Reader data
-      expect(reader.line()).to.equal '** CTR AIX (08 APR 2010) **'
+      expect(reader.line()).to.equal '** P 36 FESSENHEIM (08 APR 2010) **'
 
     it 'when moved next, should return the second line', ->
       reader = new Reader data
       reader.moveNext()
-      expect(reader.line()).to.equal 'AC CTR'
+      expect(reader.line()).to.equal 'AC P'
 
   describe 'nextLine', ->
 
     it 'should return the second line', ->
       reader = new Reader data
-      expect(reader.nextLine()).to.equal 'AC CTR'
+      expect(reader.nextLine()).to.equal 'AC P'
 
     it 'when moved next, should return the third line', ->
       reader = new Reader data
       reader.moveNext()
-      expect(reader.nextLine()).to.equal 'AN CTR Aix 118.75'
+      expect(reader.nextLine()).to.equal 'AN P36 Fessenheim'

@@ -16,6 +16,9 @@ module.exports = function(config) {
       pattern: 'test/data/*.txt',
       included: false
     }, {
+      pattern: 'test/spec/shapes/parser-helpers.js',
+      included: false
+    }, {
       pattern: 'test/**/*Spec.js',
       included: false
     }, {
@@ -26,6 +29,8 @@ module.exports = function(config) {
       included: false
     }, 'test/test-main.js'],
 
+
+    reportSlowerThan: 100,
 
     // list of files to exclude
     exclude: [
@@ -61,7 +66,6 @@ module.exports = function(config) {
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
-
 
     // Start these browsers, currently available:
     // - Chrome

@@ -94,9 +94,23 @@
             <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./point'</span>, <span class="hljs-string">'./circle'</span>, <span class="hljs-string">'./arc'</span>], <span class="hljs-function"><span class="hljs-params">(Point, Circle, Arc)</span> -&gt;</span>
 
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShapeParser</span></span>
-    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@reader</span>)</span> -&gt;</span>
-    <span class="hljs-attribute">parseNext</span>: <span class="hljs-function"><span class="hljs-params">(center)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@reader</span>.hasNext()
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@reader</span>)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p><code>parseNext</code> Return undefined if nothing to read, null if can’t proceed</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-attribute">parseNext</span>: <span class="hljs-function"><span class="hljs-params">(center)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@reader</span>.hasNext()
       line = <span class="hljs-property">@reader</span>.line()
       code = line.substring <span class="hljs-number">0</span>, <span class="hljs-number">3</span>
       rest = line.substring <span class="hljs-number">2</span>, line.length
@@ -109,11 +123,12 @@
           <span class="hljs-property">@parseNext</span> center
         <span class="hljs-keyword">when</span> <span class="hljs-string">'DB'</span> <span class="hljs-keyword">then</span> Arc.parse center, rest
         <span class="hljs-keyword">when</span> <span class="hljs-string">'DC'</span> <span class="hljs-keyword">then</span> Circle.parse center, rest
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'**'</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span>
         <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
       <span class="hljs-keyword">if</span> shape? <span class="hljs-keyword">then</span> <span class="hljs-property">@reader</span>.moveNext()
       shape
     <span class="hljs-attribute">hasNext</span>:<span class="hljs-function"> -&gt;</span>
-      <span class="hljs-property">@parseNext</span>()?</pre></div></div>
+      <span class="hljs-property">@parseNext</span>() <span class="hljs-keyword">isnt</span> <span class="hljs-literal">undefined</span></pre></div></div>
             
         </li>
         
