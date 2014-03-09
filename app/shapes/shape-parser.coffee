@@ -3,9 +3,7 @@ define ['./point', './circle', './arc'], (Point, Circle, Arc) ->
   
   class ShapeParser
     constructor: (@reader) ->
-
-    #`parseNext` Return undefined if nothing to read, null if can't proceed
-    parseNext: (center) ->
+    parseNext: (consume = true, center) ->
       return null if not @reader.hasNext()
       line = @reader.line().trim()
       code = line.substring 0, 3
@@ -16,12 +14,18 @@ define ['./point', './circle', './arc'], (Point, Circle, Arc) ->
         when 'V X'
           rest = rest.substring 2, rest.length
           center = Point.parse rest
-          @reader.moveNext()
-          @parseNext center
-        when 'DB' then Arc.parse center, rest
+          if not consume 
+            true #We assume we have a valid shape, don't try children
+          else
+            @reader.moveNext()
+            arc = @parseNext consume, center
+            consume = false #To avoid consuming it twice            
+            arc
+        when 'DB'
+          Arc.parse center, rest
         when 'DC' then Circle.parse center, rest
         else null
-      if shape? then @reader.moveNext()
+      if shape? and consume then @reader.moveNext()
       shape
     canParse: ->
-      @parseNext()?
+      @parseNext(false)?

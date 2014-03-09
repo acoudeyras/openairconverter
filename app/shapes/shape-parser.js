@@ -7,8 +7,11 @@ define(['./point', './circle', './arc'], function(Point, Circle, Arc) {
       this.reader = reader;
     }
 
-    ShapeParser.prototype.parseNext = function(center) {
-      var code, line, rest, shape;
+    ShapeParser.prototype.parseNext = function(consume, center) {
+      var arc, code, line, rest, shape;
+      if (consume == null) {
+        consume = true;
+      }
       if (!this.reader.hasNext()) {
         return null;
       }
@@ -23,8 +26,15 @@ define(['./point', './circle', './arc'], function(Point, Circle, Arc) {
           case 'V X':
             rest = rest.substring(2, rest.length);
             center = Point.parse(rest);
-            this.reader.moveNext();
-            return this.parseNext(center);
+            if (!consume) {
+              return true;
+            } else {
+              this.reader.moveNext();
+              arc = this.parseNext(consume, center);
+              consume = false;
+              return arc;
+            }
+            break;
           case 'DB':
             return Arc.parse(center, rest);
           case 'DC':
@@ -33,14 +43,14 @@ define(['./point', './circle', './arc'], function(Point, Circle, Arc) {
             return null;
         }
       }).call(this);
-      if (shape != null) {
+      if ((shape != null) && consume) {
         this.reader.moveNext();
       }
       return shape;
     };
 
     ShapeParser.prototype.canParse = function() {
-      return this.parseNext() != null;
+      return this.parseNext(false) != null;
     };
 
     return ShapeParser;
