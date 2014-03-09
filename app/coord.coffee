@@ -1,5 +1,6 @@
 define ->
-
+  'use strict'
+  
   class Coord
     constructor: (@degre, @minute, @second, @orientation) ->
     equals: ({degre, minute, second, orientation}) ->

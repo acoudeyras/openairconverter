@@ -1,5 +1,6 @@
 define ->
-
+  'use strict'
+  
   class MemoryReader
     constructor: (data) ->
       @data = data.split '\n'

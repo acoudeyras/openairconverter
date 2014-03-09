@@ -1,5 +1,6 @@
 define ['memory-reader', 'text!../data/small-french.txt'], (Reader, data) ->
-
+  'use strict'
+  
   describe 'hasNext and moveNext', ->
 
     describe 'with a single line', ->

@@ -1,5 +1,6 @@
 define ['coord'], (Coord) ->
-  
+  'use strict'
+    
   describe 'parse', ->
 
     it 'should parse a coord', ->

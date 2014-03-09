@@ -1,5 +1,6 @@
 define ->
-
+  'use strict'
+  
   class Circle
     constructor: (@center, @radius) ->
     discretize: -> [@]

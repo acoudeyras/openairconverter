@@ -1,5 +1,6 @@
 define ['memory-reader', 'shapes/shape-parser'], (Reader, ShapeParser) ->
-
+  'use strict'
+  
   newParser: (str) ->
     reader = new Reader(str)
     new ShapeParser reader

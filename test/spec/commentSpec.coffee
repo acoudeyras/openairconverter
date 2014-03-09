@@ -1,5 +1,6 @@
 define ['comment'], (Comment) ->
-  
+  'use strict'
+    
   describe 'parse', ->
 
     it 'should parse a comment', ->

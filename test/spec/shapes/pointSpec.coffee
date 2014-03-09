@@ -1,5 +1,6 @@
 define ['shapes/point', 'coord'], (Point, Coord) ->
-  
+  'use strict'
+    
   describe 'parse', ->
 
     it 'should parse a point', ->

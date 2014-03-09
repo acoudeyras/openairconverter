@@ -1,5 +1,6 @@
 define ['shapes/point', './parser-helpers.js', 'text!../../data/small-french.txt'], (Point, parserHelpers, data) ->
-
+  'use strict'
+  
   describe 'parse', ->
 
     it 'should parse an arc', ->

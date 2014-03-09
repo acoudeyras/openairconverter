@@ -1,5 +1,6 @@
 define ['../coord'], (Coord) ->
-
+  'use strict'
+  
   class Point
     constructor: (@lat, @lng) ->
     equals: ({lat, lng}) ->

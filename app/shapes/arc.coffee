@@ -1,5 +1,6 @@
 define ['./point'], (Point) ->
-
+  'use strict'
+  
   class Arc
     constructor: (@center, @coord1, @coord2) ->
     discretize: -> [@]
