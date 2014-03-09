@@ -2,19 +2,22 @@ define ->
   'use strict'
 
   convertPoint = (point) ->
-    [point.lat.decimalDegrees, point.lng.decimalDegrees]
+    [point.lng.decimalDegrees, point.lat.decimalDegrees]
 
   convertZone = (zone) ->
     type: 'Feature'
     geometry:
       type: 'Polygon'
-      coordinates: zone.polygon.map convertPoint
+      coordinates: [zone.polygon.map convertPoint]
     properties:
       name: zone.name
-      class: zone.class
+      classCode: zone.class.code
+      className: zone.class.name
       description: zone.description
-      floor: zone.floor
-      ceiling: zone.ceiling
+      floorFeet: zone.floor.feet
+      floorDesc: zone.floor.desc
+      ceilingFeet: zone.ceiling.feet
+      ceilingDesc: zone.ceiling.desc
 
   class Converter
     constructor: ->

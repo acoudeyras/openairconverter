@@ -3,21 +3,24 @@ define(function() {
   'use strict';
   var Converter, convertPoint, convertZone;
   convertPoint = function(point) {
-    return [point.lat.decimalDegrees, point.lng.decimalDegrees];
+    return [point.lng.decimalDegrees, point.lat.decimalDegrees];
   };
   convertZone = function(zone) {
     return {
       type: 'Feature',
       geometry: {
         type: 'Polygon',
-        coordinates: zone.polygon.map(convertPoint)
+        coordinates: [zone.polygon.map(convertPoint)]
       },
       properties: {
         name: zone.name,
-        "class": zone["class"],
+        classCode: zone["class"].code,
+        className: zone["class"].name,
         description: zone.description,
-        floor: zone.floor,
-        ceiling: zone.ceiling
+        floorFeet: zone.floor.feet,
+        floorDesc: zone.floor.desc,
+        ceilingFeet: zone.ceiling.feet,
+        ceilingDesc: zone.ceiling.desc
       }
     };
   };

@@ -4,7 +4,7 @@ define ['./point', '../check-helpers'], (Point, {isMandatory}) ->
   class Arc
     constructor: (@center, @coord1, @coord2) ->
       isMandatory @center, 'center is mandatory'
-    discretize: -> [@]
+    discretize: -> [@center]
     @parse: (center, str) ->
       [coord1, coord2] = str.split ','
         .map Point.parse

@@ -4,11 +4,53 @@ define(['converters/geojson/geojson-convert', '../../test-helpers.js'], function
   airSpaceWithSimpleZone = _arg.airSpaceWithSimpleZone;
   'use strict';
   return describe('toGeoJson', function() {
-    return describe('with a simple zone', function() {
-      return it('should parse an altitude in feet', function() {
-        var result;
-        result = new Converter().toGeoJson(airSpaceWithSimpleZone);
-        return console.log(result);
+    return describe('with an airspace with one zone', function() {
+      var asString, geojson;
+      geojson = new Converter().toGeoJson(airSpaceWithSimpleZone);
+      asString = JSON.stringify(geojson);
+      console.log(asString);
+      it('should return a json object', function() {
+        expect(geojson).to.exist;
+        return expect(geojson).to.be.an('object');
+      });
+      it('should return one feature collection', function() {
+        return expect(geojson.type).to.equal('FeatureCollection');
+      });
+      it('should return one feature in the collection', function() {
+        return expect(geojson.features).to.have.length(1);
+      });
+      return describe('zone feature', function() {
+        var zone;
+        zone = geojson.features[0];
+        describe('geometry', function() {
+          it('should be a polygon', function() {
+            return expect(zone.geometry.type).to.equal('Polygon');
+          });
+          return it('coordinates', function() {});
+        });
+        return describe('properties', function() {
+          it('should have a name', function() {
+            return expect(zone.properties.name).to.equal('P36 Fessenheim');
+          });
+          it('should have a classCode', function() {
+            return expect(zone.properties.classCode).to.equal('P');
+          });
+          it('should have a className', function() {
+            return expect(zone.properties.className).to.equal('prohibited');
+          });
+          it('should have a floorFeet', function() {
+            return expect(zone.properties.floorFeet).to.equal(0);
+          });
+          it('should have a floorDesc', function() {
+            return expect(zone.properties.floorDesc).to.equal('SFC');
+          });
+          it('should have a ceilingFeet', function() {
+            return expect(zone.properties.ceilingFeet).to.equal(4000);
+          });
+          return it('should have a ceilingDesc', function() {
+            return expect(zone.properties.ceilingDesc).to.equal('4000FT AMSL');
+          });
+        });
       });
     });
   });
