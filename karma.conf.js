@@ -16,6 +16,9 @@ module.exports = function(config) {
       pattern: 'test/data/*.txt',
       included: false
     }, {
+      pattern: 'test/test-helpers.js',
+      included: false
+    }, {
       pattern: 'test/spec/shapes/parser-helpers.js',
       included: false
     }, {

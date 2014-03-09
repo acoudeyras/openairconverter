@@ -1,12 +1,18 @@
-define ->
+define ['./helpers'], ->
   'use strict'
+
+  negativePositions = ['W', 'S']
   
   class Coord
-    constructor: (@degre, @minute, @second, @orientation) ->
-    equals: ({degre, minute, second, orientation}) ->
-      degre is @degre and minute is @minute and second is @second and orientation is @orientation
+    constructor: (@degres, @minutes, @seconds, @orientation) ->
+    equals: ({degres, minutes, seconds, orientation}) ->
+      degres is @degres and minutes is @minutes and seconds is @seconds and orientation is @orientation
+    @lazyval 'decimalDegrees', ->
+      val = @degres + @minutes / 60 + @seconds / 3600
+      if @orientation in negativePositions then -val
+      else val
     @parse: (str) ->
       [coord, orientation]  = str.split ' '
-      [degre, minute, second] = coord.split ':'
+      [degres, minutes, seconds] = coord.split ':'
         .map (val) -> parseInt(val, 10)
-      new Coord degre, minute, second, orientation
+      new Coord degres, minutes, seconds, orientation
