@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>point.coffee</title>
+  <title>comment.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -101,7 +101,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>point.coffee</h1>
+                  <h1>comment.coffee</h1>
               </div>
           </li>
         
@@ -116,19 +116,13 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'../coord'</span>], <span class="hljs-function"><span class="hljs-params">(Coord)</span> -&gt;</span>
+            <div class="content"><div class='highlight'><pre>define<span class="hljs-function"> -&gt;</span>
   <span class="hljs-string">'use strict'</span>
   
-  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span></span>
-    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@lat</span>, <span class="hljs-property">@lng</span>)</span> -&gt;</span>
-    <span class="hljs-attribute">equals</span>: <span class="hljs-function"><span class="hljs-params">({lat, lng})</span> -&gt;</span>
-      lat.equals(<span class="hljs-property">@lat</span>) <span class="hljs-keyword">and</span> lng.equals <span class="hljs-property">@lng</span>
-    <span class="hljs-attribute">discretize</span>:<span class="hljs-function"> -&gt;</span> [@]
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Comment</span></span>
     <span class="hljs-property">@parse</span>: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
-      [latCoord, latOrientation, lngCoord, lngOrientation] = str.split <span class="hljs-string">' '</span>
-      lat = Coord.parse latCoord + <span class="hljs-string">' '</span> + latOrientation
-      lng = Coord.parse lngCoord + <span class="hljs-string">' '</span> + lngOrientation
-      <span class="hljs-keyword">new</span> Point lat, lng</pre></div></div>
+      [comment] = str.split <span class="hljs-string">'**'</span>
+      comment.trim()</pre></div></div>
             
         </li>
         

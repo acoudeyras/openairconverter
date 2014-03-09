@@ -8,7 +8,7 @@ define ['shapes/point', './parser-helpers.js', 'text!../../data/small-french.txt
       expect(point.equals Point.parse('45:48:40 N 000:11:48 E')).to.be.true
 
     it 'should skip a comment', ->
-      expect(parserHelpers.parse data).to.be.null 
+      expect(parserHelpers.parse data).to.be.null
 
     it 'should use reader current state', ->
       parser = parserHelpers.parseAndSkip data, 5

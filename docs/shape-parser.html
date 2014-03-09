@@ -19,6 +19,26 @@
           <div id="jump_page">
             
               
+              <a class="source" href="altitude.html">
+                altitude.coffee
+              </a>
+            
+              
+              <a class="source" href="check-helpers.html">
+                check-helpers.coffee
+              </a>
+            
+              
+              <a class="source" href="class.html">
+                class.coffee
+              </a>
+            
+              
+              <a class="source" href="comment.html">
+                comment.coffee
+              </a>
+            
+              
               <a class="source" href="coord.html">
                 coord.coffee
               </a>
@@ -34,11 +54,6 @@
               </a>
             
               
-              <a class="source" href="path-reader.html">
-                path-reader.coffee
-              </a>
-            
-              
               <a class="source" href="polygon.html">
                 polygon.coffee
               </a>
@@ -46,6 +61,11 @@
               
               <a class="source" href="arc.html">
                 arc.coffee
+              </a>
+            
+              
+              <a class="source" href="center.html">
+                center.coffee
               </a>
             
               
@@ -61,6 +81,11 @@
               
               <a class="source" href="shape-parser.html">
                 shape-parser.coffee
+              </a>
+            
+              
+              <a class="source" href="zone-parser.html">
+                zone-parser.coffee
               </a>
             
               
@@ -92,43 +117,36 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./point'</span>, <span class="hljs-string">'./circle'</span>, <span class="hljs-string">'./arc'</span>], <span class="hljs-function"><span class="hljs-params">(Point, Circle, Arc)</span> -&gt;</span>
-
+  <span class="hljs-string">'use strict'</span>
+  
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShapeParser</span></span>
-    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@reader</span>)</span> -&gt;</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p><code>parseNext</code> Return undefined if nothing to read, null if can’t proceed</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-attribute">parseNext</span>: <span class="hljs-function"><span class="hljs-params">(center)</span> -&gt;</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@reader</span>.hasNext()
-      line = <span class="hljs-property">@reader</span>.line()
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@reader</span>)</span> -&gt;</span>
+    <span class="hljs-attribute">parseNext</span>: <span class="hljs-function"><span class="hljs-params">(consume = <span class="hljs-literal">true</span>, center)</span> -&gt;</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-property">@reader</span>.hasNext()
+      line = <span class="hljs-property">@reader</span>.line().trim()
       code = line.substring <span class="hljs-number">0</span>, <span class="hljs-number">3</span>
       rest = line.substring <span class="hljs-number">2</span>, line.length
       rest = rest.trim()
       shape = <span class="hljs-keyword">switch</span> code.trim()
         <span class="hljs-keyword">when</span> <span class="hljs-string">'DP'</span> <span class="hljs-keyword">then</span> Point.parse rest
         <span class="hljs-keyword">when</span> <span class="hljs-string">'V X'</span>
+          rest = rest.substring <span class="hljs-number">2</span>, rest.length
           center = Point.parse rest
-          <span class="hljs-property">@reader</span>.moveNext()
-          <span class="hljs-property">@parseNext</span> center
-        <span class="hljs-keyword">when</span> <span class="hljs-string">'DB'</span> <span class="hljs-keyword">then</span> Arc.parse center, rest
+          <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> consume
+            <span class="hljs-literal">true</span> <span class="hljs-comment">#We assume we have a valid shape, don't try children</span>
+          <span class="hljs-keyword">else</span>
+            <span class="hljs-property">@reader</span>.moveNext()
+            arc = <span class="hljs-property">@parseNext</span> consume, center
+            consume = <span class="hljs-literal">false</span> <span class="hljs-comment">#To avoid consuming it twice</span>
+            arc
+        <span class="hljs-keyword">when</span> <span class="hljs-string">'DB'</span>
+          Arc.parse center, rest
         <span class="hljs-keyword">when</span> <span class="hljs-string">'DC'</span> <span class="hljs-keyword">then</span> Circle.parse center, rest
-        <span class="hljs-keyword">when</span> <span class="hljs-string">'**'</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span>
         <span class="hljs-keyword">else</span> <span class="hljs-literal">null</span>
-      <span class="hljs-keyword">if</span> shape? <span class="hljs-keyword">then</span> <span class="hljs-property">@reader</span>.moveNext()
+      <span class="hljs-keyword">if</span> shape? <span class="hljs-keyword">and</span> consume <span class="hljs-keyword">then</span> <span class="hljs-property">@reader</span>.moveNext()
       shape
-    <span class="hljs-attribute">hasNext</span>:<span class="hljs-function"> -&gt;</span>
-      <span class="hljs-property">@parseNext</span>() <span class="hljs-keyword">isnt</span> <span class="hljs-literal">undefined</span></pre></div></div>
+    <span class="hljs-attribute">canParse</span>:<span class="hljs-function"> -&gt;</span>
+      <span class="hljs-property">@parseNext</span>(<span class="hljs-literal">false</span>)?</pre></div></div>
             
         </li>
         

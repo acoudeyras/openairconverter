@@ -38,7 +38,7 @@ define ['zone', 'memory-reader', 'shapes/point', 'text!../data/small-french.txt'
         isPoint zone.shapes[5], '47:54:15 N 007:34:59 E'
 
 
-      it 'should parse each zone arc in correct order', ->        
+      it 'should parse each zone arc in correct order', ->
         arc = zone.shapes[1]
         isPoint arc.center, '47:54:15 N 007:33:48 E'
         isPoint arc.coord1, '47:51:30 N 007:33:35 E'

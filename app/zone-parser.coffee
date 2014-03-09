@@ -23,7 +23,7 @@ define ['./shapes/shape-parser', './altitude', './comment', './class'], (ShapePa
           when 'AL'
             zone.floor = Altitude.parse rest
           when '**' then Comment.parse rest
-          else 
+          else
             while @shapeParser.canParse()
               shape = @shapeParser.parseNext()
               zone.shapes.push shape

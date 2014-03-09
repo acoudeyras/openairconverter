@@ -17,4 +17,4 @@ define ['memory-reader', 'shapes/shape-parser'], (Reader, ShapeParser) ->
 
   parseAt: (str, lineNum) ->
     parser = @parseAndSkip str, lineNum
-    parser.parseNext()  
+    parser.parseNext()

@@ -19,6 +19,26 @@
           <div id="jump_page">
             
               
+              <a class="source" href="altitude.html">
+                altitude.coffee
+              </a>
+            
+              
+              <a class="source" href="check-helpers.html">
+                check-helpers.coffee
+              </a>
+            
+              
+              <a class="source" href="class.html">
+                class.coffee
+              </a>
+            
+              
+              <a class="source" href="comment.html">
+                comment.coffee
+              </a>
+            
+              
               <a class="source" href="coord.html">
                 coord.coffee
               </a>
@@ -34,11 +54,6 @@
               </a>
             
               
-              <a class="source" href="path-reader.html">
-                path-reader.coffee
-              </a>
-            
-              
               <a class="source" href="polygon.html">
                 polygon.coffee
               </a>
@@ -46,6 +61,11 @@
               
               <a class="source" href="arc.html">
                 arc.coffee
+              </a>
+            
+              
+              <a class="source" href="center.html">
+                center.coffee
               </a>
             
               
@@ -61,6 +81,11 @@
               
               <a class="source" href="shape-parser.html">
                 shape-parser.coffee
+              </a>
+            
+              
+              <a class="source" href="zone-parser.html">
+                zone-parser.coffee
               </a>
             
               
@@ -91,10 +116,12 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./point'</span>], <span class="hljs-function"><span class="hljs-params">(Point)</span> -&gt;</span>
-
+            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./point'</span>, <span class="hljs-string">'../check-helpers'</span>], <span class="hljs-function"><span class="hljs-params">(Point, {isMandatory})</span> -&gt;</span>
+  <span class="hljs-string">'use strict'</span>
+  
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Arc</span></span>
     <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@center</span>, <span class="hljs-property">@coord1</span>, <span class="hljs-property">@coord2</span>)</span> -&gt;</span>
+      isMandatory <span class="hljs-property">@center</span>, <span class="hljs-string">'center is mandatory'</span>
     <span class="hljs-attribute">discretize</span>:<span class="hljs-function"> -&gt;</span> [@]
     <span class="hljs-property">@parse</span>: <span class="hljs-function"><span class="hljs-params">(center, str)</span> -&gt;</span>
       [coord1, coord2] = str.split <span class="hljs-string">','</span>

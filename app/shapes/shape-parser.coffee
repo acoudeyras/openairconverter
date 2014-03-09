@@ -14,12 +14,12 @@ define ['./point', './circle', './arc'], (Point, Circle, Arc) ->
         when 'V X'
           rest = rest.substring 2, rest.length
           center = Point.parse rest
-          if not consume 
+          if not consume
             true #We assume we have a valid shape, don't try children
           else
             @reader.moveNext()
             arc = @parseNext consume, center
-            consume = false #To avoid consuming it twice            
+            consume = false #To avoid consuming it twice
             arc
         when 'DB'
           Arc.parse center, rest

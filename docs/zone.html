@@ -19,6 +19,26 @@
           <div id="jump_page">
             
               
+              <a class="source" href="altitude.html">
+                altitude.coffee
+              </a>
+            
+              
+              <a class="source" href="check-helpers.html">
+                check-helpers.coffee
+              </a>
+            
+              
+              <a class="source" href="class.html">
+                class.coffee
+              </a>
+            
+              
+              <a class="source" href="comment.html">
+                comment.coffee
+              </a>
+            
+              
               <a class="source" href="coord.html">
                 coord.coffee
               </a>
@@ -34,11 +54,6 @@
               </a>
             
               
-              <a class="source" href="path-reader.html">
-                path-reader.coffee
-              </a>
-            
-              
               <a class="source" href="polygon.html">
                 polygon.coffee
               </a>
@@ -46,6 +61,11 @@
               
               <a class="source" href="arc.html">
                 arc.coffee
+              </a>
+            
+              
+              <a class="source" href="center.html">
+                center.coffee
               </a>
             
               
@@ -61,6 +81,11 @@
               
               <a class="source" href="shape-parser.html">
                 shape-parser.coffee
+              </a>
+            
+              
+              <a class="source" href="zone-parser.html">
+                zone-parser.coffee
               </a>
             
               
@@ -91,20 +116,15 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./path-reader'</span>], <span class="hljs-function"><span class="hljs-params">(PathReader)</span> -&gt;</span>
-
-  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Altitude</span></span>
-    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@feet</span>, <span class="hljs-property">@desc</span>)</span> -&gt;</span>
-    <span class="hljs-property">@fromString</span>: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
-      <span class="hljs-keyword">if</span> str.substring(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>) <span class="hljs-keyword">is</span> <span class="hljs-string">'FL'</span>
-        level = parseInt(str.substring <span class="hljs-number">2</span>, str.length, <span class="hljs-number">10</span>)
-        <span class="hljs-keyword">new</span> Altitude level * <span class="hljs-number">100</span>, str
-      <span class="hljs-keyword">else</span>
-        [feet] = str.split <span class="hljs-string">'FT'</span>
-        <span class="hljs-keyword">new</span> Altitude parseInt(feet, <span class="hljs-number">10</span>), str
-
+            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./zone-parser'</span>], <span class="hljs-function"><span class="hljs-params">(ZoneParser)</span> -&gt;</span>
+  <span class="hljs-string">'use strict'</span>
+  
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Zone</span></span>
-    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">({<span class="hljs-property">@name</span>, <span class="hljs-property">@class</span>, <span class="hljs-property">@description</span>, <span class="hljs-property">@floor</span>, <span class="hljs-property">@ceiling</span>, <span class="hljs-property">@polygon</span>})</span> -&gt;</span></pre></div></div>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">({<span class="hljs-property">@name</span>, <span class="hljs-property">@class</span>, <span class="hljs-property">@description</span>, <span class="hljs-property">@floor</span>, <span class="hljs-property">@ceiling</span>, <span class="hljs-property">@shapes</span>})</span> -&gt;</span>
+    <span class="hljs-property">@parse</span>: <span class="hljs-function"><span class="hljs-params">(reader)</span> -&gt;</span>
+      parser = <span class="hljs-keyword">new</span> ZoneParser reader
+      zone = parser.parse()
+      <span class="hljs-keyword">new</span> Zone zone</pre></div></div>
             
         </li>
         

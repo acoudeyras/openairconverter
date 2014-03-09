@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>point.coffee</title>
+  <title>zone-parser.coffee</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -101,7 +101,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>point.coffee</h1>
+                  <h1>zone-parser.coffee</h1>
               </div>
           </li>
         
@@ -116,19 +116,39 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'../coord'</span>], <span class="hljs-function"><span class="hljs-params">(Coord)</span> -&gt;</span>
+            <div class="content"><div class='highlight'><pre>define [<span class="hljs-string">'./shapes/shape-parser'</span>, <span class="hljs-string">'./altitude'</span>, <span class="hljs-string">'./comment'</span>, <span class="hljs-string">'./class'</span>], <span class="hljs-function"><span class="hljs-params">(ShapeParser, Altitude, Comment, Class)</span> -&gt;</span>
   <span class="hljs-string">'use strict'</span>
-  
-  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span></span>
-    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@lat</span>, <span class="hljs-property">@lng</span>)</span> -&gt;</span>
-    <span class="hljs-attribute">equals</span>: <span class="hljs-function"><span class="hljs-params">({lat, lng})</span> -&gt;</span>
-      lat.equals(<span class="hljs-property">@lat</span>) <span class="hljs-keyword">and</span> lng.equals <span class="hljs-property">@lng</span>
-    <span class="hljs-attribute">discretize</span>:<span class="hljs-function"> -&gt;</span> [@]
-    <span class="hljs-property">@parse</span>: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span>
-      [latCoord, latOrientation, lngCoord, lngOrientation] = str.split <span class="hljs-string">' '</span>
-      lat = Coord.parse latCoord + <span class="hljs-string">' '</span> + latOrientation
-      lng = Coord.parse lngCoord + <span class="hljs-string">' '</span> + lngOrientation
-      <span class="hljs-keyword">new</span> Point lat, lng</pre></div></div>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ZoneParser</span></span>
+    <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@reader</span>)</span> -&gt;</span>
+      <span class="hljs-property">@shapeParser</span> = <span class="hljs-keyword">new</span> ShapeParser <span class="hljs-property">@reader</span>
+    <span class="hljs-attribute">parse</span>:<span class="hljs-function"> -&gt;</span>
+      stillInZone = <span class="hljs-literal">true</span>
+      zone =
+        <span class="hljs-attribute">shapes</span>: []
+      <span class="hljs-keyword">while</span> <span class="hljs-property">@reader</span>.hasNext() <span class="hljs-keyword">and</span> stillInZone
+        line = <span class="hljs-property">@reader</span>.line().trim()
+        code = line.substring <span class="hljs-number">0</span>, <span class="hljs-number">3</span>
+        rest = line.substring <span class="hljs-number">2</span>, line.length
+        rest = rest.trim()
+        <span class="hljs-keyword">switch</span> code.trim()
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'AC'</span>
+            zone.class = Class.parse rest
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'AN'</span>
+            zone.name = rest
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'AH'</span>
+            zone.ceiling = Altitude.parse rest
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'AL'</span>
+            zone.floor = Altitude.parse rest
+          <span class="hljs-keyword">when</span> <span class="hljs-string">'**'</span> <span class="hljs-keyword">then</span> Comment.parse rest
+          <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">while</span> <span class="hljs-property">@shapeParser</span>.canParse()
+              shape = <span class="hljs-property">@shapeParser</span>.parseNext()
+              zone.shapes.push shape
+        <span class="hljs-keyword">if</span> line.trim() <span class="hljs-keyword">is</span> <span class="hljs-string">''</span> <span class="hljs-keyword">then</span> stillInZone = <span class="hljs-literal">false</span>
+        
+        <span class="hljs-property">@reader</span>.moveNext()
+      zone</pre></div></div>
             
         </li>
         
